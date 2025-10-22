@@ -58,7 +58,7 @@ void dict_insert_kv(char *key, void *value, Dictionary *D) {
   if (i == (int)D->size) D->dict[D->size++] = E;
 }
 
-Entry dict_find_kv(char *key, Dictionary *D) {
+void bin_search(char *key, Dictionary *D, int *Middle, int *Compare) {
   int L = 0;
   int R = D->size - 1;
   int M;
@@ -72,6 +72,17 @@ Entry dict_find_kv(char *key, Dictionary *D) {
     else if (c > 0) R = M - 1;
     else if (c == 0) break;
   }
+  *Middle = M;
+  *Compare = c;
+}
+
+// Uses binary search to find element
+Entry dict_find_kv(char *key, Dictionary *D) {
+  int M;
+  int c;
+
+  bin_search(key, D, &M, &c);
+
   if (c != 0) {
     Entry E = { NULL, NULL };
     return E;
@@ -79,7 +90,17 @@ Entry dict_find_kv(char *key, Dictionary *D) {
   return D->dict[M];
 }
 
+// Uses binary search to find element to delete
 void dict_delete_kv(char *key, Dictionary *D) {
-  perror("To be implemented");
-  exit(1);
+  int M;
+  int c;
+
+  bin_search(key, D, &M, &c);
+
+  if (c == 0) {
+    for (int i = M; i < (int)D->size - 1; i++) {
+      D->dict[i] = D->dict[i + 1];
+    }
+    D->size--;
+  }
 }

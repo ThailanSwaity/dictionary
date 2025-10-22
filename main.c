@@ -26,5 +26,12 @@ int main(void)
   Entry E = dict_find_kv("Timothy", &dict);
   printf("Looking for: %s, Found: %s, Value: %s\n", "Timothy", E.key, (char *)E.value);
 
+  dict_delete_kv("Alex", &dict);
+  dict_delete_kv("Waluigi", &dict);
+  for (int i = 0; i < (int)dict.size; i++) {
+    printf("%d, %s\n", i, dict.dict[i].key);
+  }
+
+
   return 0;
 }
