@@ -12,6 +12,7 @@ typedef struct Dictionary {
   const unsigned int max_size;
 } Dictionary;
 
+int compare_strings(char *A, char *B);
 Dictionary dict_new(const unsigned int max_size);
 void dict_insert_kv(char *key, void *value, Dictionary *D);
 Entry dict_find_kv(char *key, Dictionary *D);

@@ -5,7 +5,7 @@
 
 int main(void)
 {
-  char *string_array[] = { "Cale", "Daniel", "Matt", "Madeline", "Ethan", "Thomas", "Rorey", };
+  char *string_array[] = { "Klive", "Alex", "Birdo", "Mario", "Luigi", "Donkey Kong", "Waluigi", };
   unsigned int array_length = 7;
 
   Dictionary dict = dict_new(25);
@@ -15,10 +15,16 @@ int main(void)
   }
 
   for (int i = 0; i < (int)dict.size; i++) {
-    printf("Key: %s, Value: %s\n", dict.dict[i].key, (char *)dict.dict[i].value);
+    printf("%d, %s\n", i, dict.dict[i].key);
   }
 
-  printf("dict size: %d", dict.size);
+  for (int i = 0; i < (int)dict.size; i++) {
+    Entry E = dict_find_kv(dict.dict[i].key, &dict);
+    printf("Looking for: %s, Found: %s, Value: %s\n", dict.dict[i].key, E.key, (char *)E.value);
+  }
+
+  Entry E = dict_find_kv("Timothy", &dict);
+  printf("Looking for: %s, Found: %s, Value: %s\n", "Timothy", E.key, (char *)E.value);
 
   return 0;
 }

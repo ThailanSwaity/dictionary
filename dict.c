@@ -3,11 +3,24 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
+#include <math.h>
 
 Dictionary dict_new(const unsigned int max_size) {
   Entry *new_entry_list = malloc(sizeof(Entry) * max_size);
   Dictionary dictionary = { .dict = new_entry_list, .size = 0, .max_size = max_size };
   return dictionary;
+}
+
+int compare_strings(char *A, char *B) {
+  int M;
+  int k;
+
+  M = strlen(B);
+  if (strcmp(A, B) < 0) M = strlen(A);
+  for (k = 0; k < M; k++) {
+    if (A[k] != B[k]) break;
+  }
+  return A[k] - B[k];
 }
 
 // I am not proud of this code lol
@@ -42,12 +55,28 @@ void dict_insert_kv(char *key, void *value, Dictionary *D) {
       break;
     }
   }
-  if (i == D->size) D->dict[D->size++] = E;
+  if (i == (int)D->size) D->dict[D->size++] = E;
 }
 
 Entry dict_find_kv(char *key, Dictionary *D) {
-  perror("To be implemented");
-  exit(1);
+  int L = 0;
+  int R = D->size - 1;
+  int M;
+  int c;
+
+  while (L <= R) {
+    M = L + ceil((R - L) / 2);
+    c = compare_strings(D->dict[M].key, key);
+
+    if (c < 0) L = M + 1;
+    else if (c > 0) R = M - 1;
+    else if (c == 0) break;
+  }
+  if (c != 0) {
+    Entry E = { NULL, NULL };
+    return E;
+  }
+  return D->dict[M];
 }
 
 void dict_delete_kv(char *key, Dictionary *D) {
