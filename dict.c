@@ -77,17 +77,16 @@ void bin_search(char *key, Dictionary *D, int *Middle, int *Compare) {
 }
 
 // Uses binary search to find element
-Entry dict_find_kv(char *key, Dictionary *D) {
+void* dict_find_kv(char *key, Dictionary *D) {
   int M;
   int c;
 
   bin_search(key, D, &M, &c);
 
   if (c != 0) {
-    Entry E = { NULL, NULL };
-    return E;
+    return NULL;
   }
-  return D->dict[M];
+  return D->dict[M].value;
 }
 
 // Uses binary search to find element to delete
