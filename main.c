@@ -19,12 +19,12 @@ int main(void)
   }
 
   for (int i = 0; i < (int)dict.size; i++) {
-    Entry E = dict_find_kv(dict.dict[i].key, &dict);
-    printf("Looking for: %s, Found: %s, Value: %s\n", dict.dict[i].key, E.key, (char *)E.value);
+    char *E = (char *)dict_find_kv(dict.dict[i].key, &dict);
+    printf("Looking for: %s, Found: %s, Value: %s\n", dict.dict[i].key, E, (char *)E);
   }
 
-  Entry E = dict_find_kv("Timothy", &dict);
-  printf("Looking for: %s, Found: %s, Value: %s\n", "Timothy", E.key, (char *)E.value);
+  char *E = (char *)dict_find_kv("Timothy", &dict);
+  printf("Looking for: %s, Found: %s, Value: %s\n", "Timothy", E, (char *)E);
 
   dict_delete_kv("Alex", &dict);
   dict_delete_kv("Waluigi", &dict);
