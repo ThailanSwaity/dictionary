@@ -18,4 +18,4 @@ void dict_insert_kv(char *key, void *value, Dictionary *D);
 Entry dict_find_kv(char *key, Dictionary *D);
 void dict_delete_kv(char *key, Dictionary *D);
 
-#endif // DICTOINARY_H
+#endif // DICTIONARY_H
